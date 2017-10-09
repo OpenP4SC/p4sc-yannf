@@ -198,9 +198,13 @@ func PrivateToPublicTranslation(pkt *packet.Packet, ctx flow.UserContext) bool {
 	}
 
 	// Do packet translation
-	pkt.Ether.DAddr = Natconfig.PortPairs[pi.index].PublicPort.DstMACAddress
+	// Ignore the operation of modifying dstMAC address.
+	// pkt.Ether.DAddr = Natconfig.PortPairs[pi.index].PublicPort.DstMACAddress
 	pkt.Ether.SAddr = PublicMAC[pi.index]
+	// Modify the source IP address twice
+	pktSrcAddr := packet.SwapBytesUint32(pktIPv4.SrcAddr)
 	pktIPv4.SrcAddr = packet.SwapBytesUint32(value.addr)
+	pktIPv4.SrcAddr = packet.SwapBytesUint32(pktSrcAddr)
 
 	if pktTCP != nil {
 		pktTCP.SrcPort = packet.SwapBytesUint16(value.port)
