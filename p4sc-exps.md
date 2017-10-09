@@ -17,3 +17,6 @@ We record the modifications here:
 - Modify the [Firewall.conf](https://github.com/Wasdns/yanff/blob/master/examples/Firewall.conf):
 10 missed rules and 1 hit rule.
 - Add `p4sc-exps.md` for recording these modifications.
+
+2017/10/9:
+- Modify the operations of NAT PrivateToPublicTranslation: [translation.go L200](https://github.com/Wasdns/yanff/blob/master/examples/nat/translation.go#L200), modify the packet source IP address twice and change the packet source MAC address once.
